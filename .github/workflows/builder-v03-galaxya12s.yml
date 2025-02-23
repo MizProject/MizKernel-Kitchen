@@ -334,7 +334,7 @@ jobs:
             curl -X POST \
             https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
             -d chat_id=@prjkt_mizumo \
-            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s %0A%0A ```$(<~/file.out)``` " \
+            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s %0A%0A ```$(file MizKernel/arch/arm64/boot/Image)``` " \
              -d reply_markup='{"inline_keyboard": [[{"text": "🧑‍💻Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"}], [{"text": "⬇️Download Kernel File", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}], [{"text": "⬇️Download Boot Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}], [{"text": "⬇️Download TWRP Zip", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}]]}'
             
         - name: Send alert to Telegram users via Bots - Exynos 850
@@ -342,5 +342,5 @@ jobs:
             curl -X POST \
             https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
             -d chat_id=@a12schat \
-            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s %0A%0A ```$(<~/file.out)``` " \
+            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s %0A%0A ```$(file MizKernel/arch/arm64/boot/Image)``` " \
             -d reply_markup='{"inline_keyboard": [[{"text": "🧑‍💻Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"}], [{"text": "⬇️Download Kernel File", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}], [{"text": "⬇️Download Boot Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}], [{"text": "⬇️Download TWRP Zip", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}]]}'
