@@ -28,11 +28,12 @@ on:
         required: true
         default: "A12345678"
         type: string
-      notify_telegram_channel:
-        description: "Notify the Telegram Channel (Make sure you set up the secrets with variable named: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)"
-        required: true
-        default: false
-        type: boolean
+        # Deprecate this flag
+      # notify_telegram_channel:
+      #   description: "Notify the Telegram Channel (Make sure you set up the secrets with variable named: TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID)"
+      #   required: true
+      #   default: false
+      #   type: boolean
       use_uc_boot_template:
         description: "Use the UC Boot Template"
         required: true
@@ -327,11 +328,19 @@ jobs:
         #       Link: https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{ github.run_id }}
 
 
-        - name: Send alert to Telegram users via Bots
+        - name: Send alert to Telegram users via Bots - Home group
           run: |
             curl -X POST \
             https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
             -d chat_id=@prjkt_mizumo \
+            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s %0A%0A Apatch was used? : ${{ github.event.inputs.apatch }} %0A%0A APatch Password: ${{ github.event.inputs.apatch_password }} %0A%0A Note: %0A%0A For A12s using APatch already, trying to apply an update, i suggest using the zip variant instead, no need to reflash boot partition." \
+            -d reply_markup='{"inline_keyboard": [[{"text": "Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"} , {"text": "Download Boot Image (boot.img)", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}, {"text": "Download AnyKernel ZIP Variant for TWRP/OFox Flashing", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}, {"text": "Download Raw Image file only, just raw, nothing else", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}]] }
+                
+        - name: Send alert to Telegram users via Bots - E850
+          run: |
+            curl -X POST \
+            https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
+            -d chat_id=@a12schat \
             -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s %0A%0A Apatch was used? : ${{ github.event.inputs.apatch }} %0A%0A APatch Password: ${{ github.event.inputs.apatch_password }} %0A%0A Note: %0A%0A For A12s using APatch already, trying to apply an update, i suggest using the zip variant instead, no need to reflash boot partition." \
             -d reply_markup='{"inline_keyboard": [[{"text": "Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"} , {"text": "Download Boot Image (boot.img)", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}, {"text": "Download AnyKernel ZIP Variant for TWRP/OFox Flashing", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}, {"text": "Download Raw Image file only, just raw, nothing else", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}]] }
                 
