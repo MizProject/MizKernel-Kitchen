@@ -11,10 +11,15 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Telegram msg
-      uses: appleboy/telegram-action@master
-      with:
-        to: ${{ secrets.TELEGRAM_EXYNOS_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        message: "Hello, i'm Emu Otori, Emu is meaning SMIIIILEEE!!!! (this is a test message)"
-        photo: "__debug/its-emu-otori.jpeg"
+    - name: Inline
+      run: |
+            curl -X POST \
+            https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
+            -d chat_id=@Mizumo_prjkt \
+            -d text="This is a test dummy of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s [...] \
+            -d reply_markup='{"inline_keyboard": [
+                [{"text": "Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"}],
+                [{"text": "Download Kernel Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}],
+                [{"text": "Download Boot Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}],
+                [{"text": "Download TWRP Zip", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}]
+            ]}'
