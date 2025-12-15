@@ -38,7 +38,7 @@ on:
         default: true
         type: boolean
       util_in_submodule:
-        description: "Is the repo has a submodule, with toolchains and extra?"
+        description: "Trigger git submodules"
         required: true
         default: true
         type: boolean
@@ -56,6 +56,7 @@ on:
         required: true
         default: false
         type: boolean
+
 
 permissions:
   contents: write
@@ -118,7 +119,7 @@ jobs:
             fi
 
             cd MizKernel
-            ./build_kernel.sh $LTO $LD $SUBMODULE
+            ./build.sh $LTO $LD $SUBMODULE
             cd ..
 
         - name: "Pull Finished Kernel"
