@@ -32,6 +32,14 @@ on:
       #   required: true
       #   default: false
       #   type: boolean
+      select_ksu:
+        description: "Choose what KernelSU you want to use!"
+        required: true
+        default: "Rissu KSU"
+        type: choice
+        options:
+          - "Rissu KSU"
+          - "KSU Next"
       use_uc_boot_template:
         description: "Use the UC Boot Template"
         required: true
@@ -95,6 +103,18 @@ jobs:
             cd MizKernel
             git checkout ${{ github.event.inputs.version }}
             cd ..
+
+        - name: "Link the KSU to drivers/"
+          run: |
+            if [ "${{github.event.inputs.select_ksu}}" == "Rissu KSU" ]; then
+              cd MizKernel
+              ./fix-symlink-ksu-actions.sh "rKSU"
+              cd ..
+            elif [ "${{github.event.inputs.select_ksu}}" == "KSU Next" ]; then
+              cd MizKernel
+              ./fix-symlink-ksu-actions.sh "nxtKSU"
+              cd ..
+            fi
         
         - name: "Build the kernel"
           run: |
