@@ -284,7 +284,6 @@ jobs:
               ```
 
 
-              Changelog: https://raw.githubusercontent.com/MizProject/MizKernel-GalaxyA12s/refs/heads/${{ github.event.inputs.version }}/CHANGELOG
           env:
             GITHUB_TOKEN: ${{ secrets.GH_FALLBACK_TOKEN }} 
 
