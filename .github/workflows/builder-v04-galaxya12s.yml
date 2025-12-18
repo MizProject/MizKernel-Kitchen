@@ -16,6 +16,7 @@ on:
         options:
           - "main"
           - "unstable"
+          - "testing-susfs"
       apatch:
         description: "Apply APatch to the Kernel"
         required: true
