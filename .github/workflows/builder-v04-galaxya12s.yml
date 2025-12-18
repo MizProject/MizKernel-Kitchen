@@ -64,6 +64,11 @@ on:
         required: true
         default: false
         type: boolean
+      ADDITIONAL_MSG:
+        description: "Anything you want to notify to users"
+        required: false
+        default: "No additional message provided"
+        type: string
 
 
 permissions:
@@ -339,7 +344,7 @@ jobs:
             curl -X POST \
             https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
             -d chat_id=@proj_mizumo \
-            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-Galaxy-A12s-Refresh %0A%0A ```$(file MizKernel/arch/arm64/boot/Image)``` " \
+            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-Galaxy-A12s-Refresh %0A%0A ```$(file MizKernel/arch/arm64/boot/Image)``` %0A%0A Additional Message Provided by the maintainer: %0A ${{github.event.inputs.ADDITIONAL_MSG}} " \
              -d reply_markup='{"inline_keyboard": [[{"text": "🧑‍💻Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"}], [{"text": "⬇️Download Kernel File", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}], [{"text": "⬇️Download Boot Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}], [{"text": "⬇️Download TWRP Zip", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}]]}'
             
         - name: Send alert to Telegram users via Bots - Exynos 850
@@ -347,5 +352,5 @@ jobs:
             curl -X POST \
             https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
             -d chat_id=@ex850chat \
-            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-Galaxy-A12s-Refresh %0A%0A ```$(file MizKernel/arch/arm64/boot/Image)``` " \
+            -d text="This is latest build of MizKernel under type: ${{ github.event.inputs.version }} %0A%0A The source code kernel is available at: https://github.com/MizProject/MizKernel-Galaxy-A12s-Refresh %0A%0A ```$(file MizKernel/arch/arm64/boot/Image)``` %0A%0A Additional Message Provided by the maintainer: %0A ${{github.event.inputs.ADDITIONAL_MSG}} " \
             -d reply_markup='{"inline_keyboard": [[{"text": "🧑‍💻Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"}], [{"text": "⬇️Download Kernel File", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}], [{"text": "⬇️Download Boot Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}], [{"text": "⬇️Download TWRP Zip", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}]]}'
