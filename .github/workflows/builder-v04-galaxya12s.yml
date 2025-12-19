@@ -17,6 +17,8 @@ on:
           - "main"
           - "unstable"
           - "testing-susfs"
+          - "upstream/4.19-google"
+          - "upstream/4.19-google_susfs"
       apatch:
         description: "Apply APatch to the Kernel"
         required: true
