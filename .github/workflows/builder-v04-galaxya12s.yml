@@ -72,6 +72,11 @@ on:
         required: false
         default: "No additional message provided"
         type: string
+      ALLOW_MESSAGING_EXTERNAL_TG_UNITS:
+        description: "Allow messaging other tg chats other than the home base chat"
+        required: true
+        default: true
+        type: boolean
 
 
 permissions:
@@ -82,6 +87,7 @@ jobs:
   build:
     name: "Build MizKernel"
     # only use 22.04 :D
+    # Newer Ubuntu envs have deprecated old components
     runs-on: ubuntu-22.04
     steps:
         - name: "Checkout"
@@ -351,6 +357,7 @@ jobs:
              -d reply_markup='{"inline_keyboard": [[{"text": "🧑‍💻Check Releases of this CI Result", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/tag/${{github.run_id}}"}], [{"text": "⬇️Download Kernel File", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/Image"}], [{"text": "⬇️Download Boot Image", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/boot.img"}], [{"text": "⬇️Download TWRP Zip", "url": "https://github.com/MizProject/MizKernel-Kitchen/releases/download/${{github.run_id}}/MizKernel-${{github.run_id}}-twrp.zip"}]]}'
             
         - name: Send alert to Telegram users via Bots - Exynos 850
+          if: ${{ github.event.inputs.ALLOW_MESSAGING_EXTERNAL_TG_UNITS == 'true' }}
           run: |
             curl -X POST \
             https://api.telegram.org/bot${{secrets.TELEGRAM_BOT_TOKEN}}/sendMessage \
