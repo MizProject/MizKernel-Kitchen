@@ -280,7 +280,7 @@ jobs:
             body: |
               ### This is latest build of MizKernel under type: ${{ github.event.inputs.version }}<br>
               
-              The source code kernel is available at: https://github.com/MizProject/MizKernel-GalaxyA12s<br>
+              The source code kernel is available at: https://github.com/MizProject/MizKernel-Galaxy-A12s-Refresh<br>
               Apatch was used? : ${{ github.event.inputs.apatch }}<br>
               APatch Password: ${{ github.event.inputs.apatch_password }}<br>
               (Note that if Apatch is set to true, the kernel is patched with APatch, if false, the kernel is not patched with APatch)
